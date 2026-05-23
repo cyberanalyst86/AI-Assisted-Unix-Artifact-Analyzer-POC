@@ -1,0 +1,40 @@
+Folder,File Path,Skill Used,Analysis Time (s),Analysis Result
+packages,packages\rpm_-V_-a.txt,RPM Modification Analyzer,80.95,"1. Verdict & Summary
+* **Classification:** Malicious
+* **Why:** The output indicates multiple high-priority modifications to core system binaries, including `/usr/bin/teams`, `/usr/bin/python3.9`, `/usr/sbin/logrotate`, `/usr/sbin/nologin`, and `/usr/sbin/cupsd`, which show hash (`5`) or size (`S`) changes, strongly suggesting potential tampering with system utilities. Additionally, critical security files like `/etc/sudoers` and `/etc/ssh/sshd_config` exhibit hash and size differences, indicating unauthorized modifications. These findings violate the analysis rules, as they show significant alterations to binaries in system paths, pointing to a possible rootkit or malicious replacement.
+
+2. Incident Response
+* **Evidence Details:**
+  - `S.5....T.    /usr/bin/teams`
+  - `........P    /usr/bin/python3.9`
+  - `S.5....T.    /usr/sbin/logrotate`
+  - `S.5....T.    /usr/sbin/nologin`
+  - `S.5....T.    /usr/sbin/cupsd`
+  - `S.5....T.  c /etc/sudoers`
+  - `S.5....T.  c /etc/ssh/sshd_config`
+* **Recommended Next Steps:**
+  1. Isolate the host by disconnecting from the network and restricting access to prevent further spread or interaction.
+  2. Re-verify binary integrity using an out-of-band method, such as booting from trusted media or a forensic image, and cross-reference with known good RPM checksums from a trusted repository.
+  3. Remediate by reinstalling affected packages using `yum reinstall --downloadonly <package-name>` to obtain clean versions, or perform a full system rebuild if necessary, while collecting memory dumps for deeper analysis."
+system,system\last_-a_-F_-f_var_log_wtmp.txt,wtmp Login Log Analyzer,30.45,"#### 1. Verdict & Summary
+* **Classification:** Not Malicious/Suspicious
+* **Why:** The log data shows no evidence of anomalous, unauthorized, or malicious activity. All logins occur from internal/private IP addresses (10.8.88.188, 10.88.8.088) which are authorized internal traffic. Root logins are from internal IPs and during standard operational hours. Short session durations are consistent with internal user activity. Reboot entries align with system maintenance windows.
+
+#### 2. Incident Response
+* **Evidence Details:** None
+* **Recommended Next Steps:** None"
+[root],[root]\etc\profile,/etc/profile.d Persistence Analyzer,26.69,"#### 1. Verdict & Summary
+Classification: Suspicious
+
+Why: The `/etc/profile` script contains a `PROMPT_COMMAND='update'` setting, which is unusual and potentially indicative of a backdoor or persistence mechanism. The `update` command is not defined within the script and could execute arbitrary code on each shell prompt. Additionally, the script sources `/etc/profile.d/*.sh` and `/etc/profile.d/sh.local`, which could be leveraged to inject malicious code if any of these files are compromised or unauthorized.
+
+#### 2. Incident Response
+Evidence Details: 
+- Line containing `PROMPT_COMMAND='update'` in `/etc/profile`
+- Lines sourcing `/etc/profile.d/*.sh` and `/etc/profile.d/sh.local`
+
+Recommended Next Steps:
+- Investigate the purpose and content of the `update` command referenced in `PROMPT_COMMAND`.
+- Securely archive and analyze the contents of all files in `/etc/profile.d/`.
+- Check system logs (e.g., `/var/log/auth.log`, `/var/log/syslog`) for any suspicious activity related to the execution of `update` or unauthorized modifications to `/etc/profile`.
+- Review the integrity of `/etc/profile` and other system startup scripts using checksums (e.g., `stat`, `sha256sum`)."
