@@ -48,7 +48,7 @@ The Python orchestration script automatically maps and runs forensic telemetry a
 * **Target File:** `packages\rpm_-V._a.txt` (using skill: `'RPM Modification Analyzer'`)[cite: 2]
 
 ```text
-[+] Loaded 4 skill(s).
+[+] Loaded 3 skill(s).
 
 --- Recursively reading all contents of: UAC_Artifact_scoped ---
 
