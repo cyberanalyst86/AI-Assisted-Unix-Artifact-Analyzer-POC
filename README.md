@@ -1,51 +1,51 @@
 # AI-Assisted Unix Artifact Analysis
 
-Leveraging Local LLMs for Offline, Cybersecurity Triage[cite: 2].
+Leveraging Local LLMs for Offline, Cybersecurity Triage.
 
 ---
 
 ## ⚖️ The Impetus
 
-* **Triage Consistency:** Manual analysis of voluminous Unix artifacts collected via UAC can be tedious and prone to human error, ultimately leading to inconsistent triage[cite: 2].
-* **Privacy & Compliance:** Sending sensitive system artifacts to cloud-based AI poses data privacy risks[cite: 2]. This POC mitigates that by keeping data entirely on local hardware[cite: 2].
+* **Triage Consistency:** Manual analysis of voluminous Unix artifacts collected via UAC can be tedious and prone to human error, ultimately leading to inconsistent triage.
+* **Privacy & Compliance:** Sending sensitive system artifacts to cloud-based AI poses data privacy risks. This POC mitigates that by keeping data entirely on local hardware.
 
 ---
 
 ## 💻 POC Hardware Specifications
 
-This Proof of Concept was evaluated on a local machine configured with the following hardware specs[cite: 2]:
+This Proof of Concept was evaluated on a local machine configured with the following hardware specs:
 
-* **Processor:** Intel(R) Core(TM) Ultra 7 155H (1.40 GHz)[cite: 2]
-* **RAM:** 32.0 GB (31.6 GB usable)[cite: 2]
-* **GPU:** NVIDIA GeForce RTX 4060 Laptop GPU (8 GB VRAM)[cite: 2]
+* **Processor:** Intel(R) Core(TM) Ultra 7 155H (1.40 GHz)
+* **RAM:** 32.0 GB (31.6 GB usable)
+* **GPU:** NVIDIA GeForce RTX 4060 Laptop GPU (8 GB VRAM)
 
 ---
 
 ## ⚙️ Consumer HW Optimization
 
-To run efficiently on consumer-grade local machinery, the pipeline employs[cite: 2]:
+To run efficiently on consumer-grade local machinery, the pipeline employs:
 
-* `deepseek-r1:8b`: A lightweight model selected to avoid massive hardware overhead[cite: 2].
-* `num_ctx: 4000`: Context windows are managed specifically to ensure execution stays entirely inside the 8GB GPU VRAM limit[cite: 2].
-* `keep_alive: 30m`: Eliminates model reload penalties between execution runs for massive speed gains[cite: 2].
+* `deepseek-r1:8b`: A lightweight model selected to avoid massive hardware overhead.
+* `num_ctx: 4000`: Context windows are managed specifically to ensure execution stays entirely inside the 8GB GPU VRAM limit.
+* `keep_alive: 30m`: Eliminates model reload penalties between execution runs for massive speed gains.
 
 ---
 
 ## 🔄 Orchestration & Workflow
 
-The Python orchestration script automatically maps and runs forensic telemetry against specific digital forensics skill markdown files[cite: 2]:
+The Python orchestration script automatically maps and runs forensic telemetry against specific digital forensics skill markdown files:
 
-1. **Ingestion:** Recursively scans artifact folders, handling both plain-text logs (`.txt`) and binary string extraction (e.g., `/etc/profile.d`)[cite: 2].
-2. **Skill Match:** Heuristically matches the file name to a specific, predefined "skill" file (`.md`)[cite: 2].
-3. **AI Analysis:** Combines the file content (artifacts) and the skill instructions, sending it to the locally running LLM[cite: 2].
-4. **Reporting:** Logs the file path, skill used, processing time, and the AI's analysis into a centralized CSV matrix[cite: 2].
+1. **Ingestion:** Recursively scans artifact folders, handling both plain-text logs (`.txt`) and binary string extraction (e.g., `/etc/profile.d`).
+2. **Skill Match:** Heuristically matches the file name to a specific, predefined "skill" file (`.md`).
+3. **AI Analysis:** Combines the file content (artifacts) and the skill instructions, sending it to the locally running LLM.
+4. **Reporting:** Logs the file path, skill used, processing time, and the AI's analysis into a centralized CSV matrix.
 
 ---
 
 ## 🔬 Live Analysis Triage Examples
 
 ### 1. Local LLM Output: RPM Modification Analyzer
-* **Target File:** `packages\rpm_-V._a.txt` (using skill: `'RPM Modification Analyzer'`)[cite: 2]
+* **Target File:** `packages\rpm_-V._a.txt` (using skill: `'RPM Modification Analyzer'`)
 
 ```text
 [+] Loaded 3 skill(s).
