@@ -1,0 +1,17 @@
+S.5....T.  c /etc/profile
+.....UG..    /opt
+S.5....T.  c /etc/crontab
+S.5....T.    /usr/bin/teams
+........P    /usr/bin/python3.9
+S.5....T.    /usr/sbin/logrotate
+S.5....T.  c /etc/chrony.conf
+S.5....T.  c /etc/sudoers
+.......T.  c /etc/selinux/targeted/contexts/customizable_types
+S.5....T.    /usr/sbin/nologin
+.M.......  g /var/lib/plymouth/boot-duration
+.M.......  g /var/lib/colord/mapping.db
+.M.......  g /var/lib/colord/storage.db
+S.5....T.  c /etc/gdm/custom.conf
+S.5....T.    /usr/sbin/cupsd
+S.5....T.  c /etc/ssh/sshd_config
+.M.......    /etc/ssh/sshd_config.d
